@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NewsRadar - Uttarakhand</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f0e6; /* Soft beige */
+  color: #333;
+}
+
+header {
+  background: #d9cbb7;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+header h1 { margin: 0; font-size: 2em; }
+.nav-links a {
+  color: #333;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: bold;
+}
+.nav-links a:hover { color: #1e90ff; }
+
+#ticker {
+  background:#ff7f7f; 
+  color:white; 
+  padding:10px 0; 
+  overflow:hidden; 
+  white-space:nowrap; 
+  font-weight:bold;
+}
+#tickerContent {
+  display:inline-block; 
+  padding-left:100%; 
+  animation:scroll 40s linear infinite;
+}
+@keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+main { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+
+.hero {
+  position: relative;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/4/4e/Uttarakhand_Divisions_Map.png') center/cover no-repeat;
+  height: 400px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero h2 {
+  color: #ffffff;
+  font-size: 2.5em;
+  background: rgba(0,0,0,0.5);
+  padding: 15px 25px;
+  border-radius: 10px;
+  text-align:center;
+}
+
+.tile {
+  background: #e0d7c1;
+  padding: 50px;
+  margin: 30px 0;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  color: #1e90ff;
+  cursor: pointer;
+  box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+}
+.tile:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0,0,0,0.3); }
+
+#uttarakhandSection { display: none; }
+.back-button { display: inline-block; margin-bottom: 20px; color: #1e90ff; font-weight: bold; cursor: pointer; }
+
+.news-header { text-align: center; margin-bottom: 30px; }
+.news-header h2 { font-size: 2em; color: #1e90ff; }
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+.news-card {
+  background: #f0e8dc;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+.news-card-content { padding: 20px; }
+.news-card-content h3 { margin-top:0; margin-bottom:10px; }
+.news-card-content button {
+  background: #1e90ff; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer;
+}
+.news-card-content button:hover { background: #00bfff; }
+
+.modal { display:none; position:fixed; z-index:200; left:0; top:0; width:100%; height:100%; overflow:auto; background:rgba(0,0,0,0.85); }
+.modal-content { background:#f4f0e6; margin:50px auto; padding:30px; border-radius:15px; width:90%; max-width:900px; position:relative; color:#333; max-height:80vh; overflow-y:auto; }
+.close-btn { position:absolute; top:15px; right:20px; font-size:1.5em; font-weight:bold; color:#333; cursor:pointer; }
+.modal-content h2 { margin-top:0; color:#1e90ff; }
+.modal-content p { white-space: pre-line; line-height:1.5; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>NewsRadar</h1>
+  <nav class="nav-links">
+    <a href="#" id="homeLink">Home</a>
+    <a href="#" id="uttarakhandLink">Uttarakhand</a>
+  </nav>
+</header>
+
+<div id="ticker">
+  <div id="tickerContent">
+    ⚡ 2025 Uttarakhand flash floods: 50+ missing! &nbsp;&nbsp;&nbsp; | 🌧 Landslides block Yamunotri Highway! &nbsp;&nbsp;&nbsp; | 📰 UKSSSC Paper Leak: CBI Probe! &nbsp;&nbsp;&nbsp; | 🌩 Dehradun cloudburst causes disruption!
+  </div>
+</div>
+
+<main>
+  <section id="homeSection">
+    <div class="hero">
+      <h2>Stay Updated with Uttarakhand News</h2>
+    </div>
+    <div class="tile" id="selectStateTile">Select State: Uttarakhand</div>
+  </section>
+
+  <section id="uttarakhandSection">
+    <span class="back-button" id="backBtn">← Back to Home</span>
+    <div class="news-header"><h2>UTTARAKHAND DAILY NEWS</h2></div>
+    <div class="news-grid">
+
+      <!-- Floods Card -->
+      <div class="news-card red">
+        <div class="news-card-content">
+          <h3>Floods in Uttarakhand</h3>
+          <button>Read More</button>
+          <div class="full-content" style="display:none">
+The 2025 Uttarakhand flash flood occurred on 5 August 2025 in Uttarkashi, Uttarakhand, India. The disaster killed at least five people and left more than 50 others missing.
+
+Cause:
+Cloudburst initially reported; glacial lake outburst flood, glacier collapse, landslide or combination possible.
+
+Casualties:
+Widespread destruction in Dharali village. 5 fatalities confirmed, 50+ missing. 70 presumed dead by 14 August.
+
+Rescue:
+Indian Army, NDRF, SDRF mobilized. 190 people rescued. Helicopters on standby. Relief operations ongoing.
+
+Aftermath:
+Connectivity disrupted to Gangotri Dham. Char Dham Yatra affected. Second cloudburst at Sukhi Top. Temporary lake formed upstream in Harsil.
+          </div>
+        </div>
+      </div>
+
+      <!-- Landslides Card -->
+      <div class="news-card red">
+        <div class="news-card-content">
+          <h3>Landslides in Uttarakhand</h3>
+          <button>Read More</button>
+          <div class="full-content" style="display:none">
+Active landslides in September 2025 on Yamunotri Highway, Uttarkashi-Gangnani Road, and Dehradun due to heavy rains/cloudbursts.
+
+Specific incidents:
+- Yamunotri Highway: Impassable sections.
+- Uttarkashi-Gangnani Road: Disrupted traffic.
+- Dehradun: Cloudburst caused landslides.
+- Nainital: Hills unstable.
+- Rishikesh Neelkanth road (Aug 2025): 2 injured, 2 missing.
+- Rishikesh-Badrinath highway (Aug 2025): 3 deaths, highway blocked, 1500 pilgrims stranded.
+
+Causes:
+- Fragile mountain terrain
+- Heavy monsoon rains
+- Climate change
+- Unregulated construction
+          </div>
+        </div>
+      </div>
+
+      <!-- Breaking News Card -->
+      <div class="news-card red">
+        <div class="news-card-content">
+          <h3>Breaking News in Uttarakhand</h3>
+          <button>Read More</button>
+          <div class="full-content" style="display:none">
+UKSSSC Paper Leak: CBI probe recommended; shop of accused demolished; CM met protestors.
+
+Natural Disasters:
+- Chamoli: Cloudburst, several deaths/missing.
+- Dehradun: Cloudburst, 2 missing.
+
+Other News:
+- Health Emergency Center opening.
+- Swadeshi Campaign in Dehradun.
+- 15 judges recused in IFS officer case.
+- Rahul Gandhi supports protesting students.
+- Cloudburst death toll rises to 30, 10 missing.
+- Chamoli: 7 bodies found.
+- Mussoorie & Sahastradhara: landslides delayed rescue.
+- Dehradun: 15 dead, 16 missing, 900 stranded.
+- Sahastradhara: 13 dead, many missing.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- Modal -->
+<div id="newsModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeModal">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <p id="modalContent"></p>
+  </div>
+</div>
+
+<script>
+const homeSection = document.getElementById('homeSection');
+const uttarakhandSection = document.getElementById('uttarakhandSection');
+const selectStateTile = document.getElementById('selectStateTile');
+const backBtn = document.getElementById('backBtn');
+
+selectStateTile.addEventListener('click', () => {
+  homeSection.style.display = 'none';
+  uttarakhandSection.style.display = 'block';
+});
+backBtn.addEventListener('click', () => {
+  homeSection.style.display = 'block';
+  uttarakhandSection.style.display = 'none';
+});
+
+// Modal
+const newsCards = document.querySelectorAll('.news-card');
+const modal = document.getElementById('newsModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalContent = document.getElementById('modalContent');
+const closeModal = document.getElementById('closeModal');
+
+newsCards.forEach(card => {
+  const btn = card.querySelector('button');
+  const fullContent = card.querySelector('.full-content').innerText;
+  const title = card.querySelector('h3').innerText;
+  btn.addEventListener('click', () => {
+    modalTitle.textContent = title;
+    modalContent.textContent = fullContent;
+    modal.style.display = 'block';
+  });
+});
+
+closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
+window.onclick = function(event) { if(event.target == modal) modal.style.display = 'none'; }
+</script>
+
+</body>
+</html>
